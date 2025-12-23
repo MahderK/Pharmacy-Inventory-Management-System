@@ -3,20 +3,20 @@
 using namespace std;
 
 // Drug constructor
-Drug::Drug(string n, int i, int quan) : name(n), id(i), quantity(quan), left(nullptr), right(nullptr) {}
+Drug::Drug(string n, int i, int quan, string expiry) : name(n), id(i), quantity(quan), expiryDate(expiry), left(nullptr), right(nullptr) {}
 
 // DrugBST constructor
 DrugBST::DrugBST() : root(nullptr) {}
 
 // Insert into BST
-Drug *DrugBST::insert(Drug *node, string name, int id, int quantity)
+Drug *DrugBST::insert(Drug *node, string name, int id, int quantity, string expiryDate)
 {
     if (!node)
-        return new Drug(name, id, quantity);
+        return new Drug(name, id, quantity, expiryDate);
     if (name < node->name)
-        node->left = insert(node->left, name, id, quantity);
+        node->left = insert(node->left, name, id, quantity, expiryDate);
     else if (name > node->name)
-        node->right = insert(node->right, name, id, quantity);
+        node->right = insert(node->right, name, id, quantity, expiryDate);
     return node;
 }
 
@@ -50,14 +50,14 @@ void DrugBST::inorder(Drug *node)
     if (!node)
         return;
     inorder(node->left);
-    cout << node->name << ", " << node->id << ", " << node->quantity << endl;
+    cout << node->name << ", " << node->id << ", " << node->quantity << ", " << node->expiryDate << endl;
     inorder(node->right);
 }
 
 // Public methods
-void DrugBST::addDrug(string name, int id, int quantity)
+void DrugBST::addDrug(string name, int id, int quantity, string expiryDate)
 {
-    root = insert(root, name, id, quantity);
+    root = insert(root, name, id, quantity, expiryDate);
 }
 
 void DrugBST::findDrugName(string name)
